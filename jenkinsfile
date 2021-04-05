@@ -1,0 +1,24 @@
+node
+{
+    stage ('contnuous download')
+    {
+        git 'https://github.com/likith1728/maven-project.git'
+    }
+    stage ('continuous bulid')
+    {
+        sh 'mvn package'
+    }
+    stage ('continuous deployment')
+    {
+        deploy adapters: [tomcat8(credentialsId: '28c378e4-ac48-4991-8625-811689177464', path: '', url: 'http://172.31.5.216:8080')], contextPath: 'qaapp', war: '**\\*war'
+    }
+    stage ('continuous testing')
+    {
+        git 'https://github.com/likith1728/FunctionalTesting.git'
+        sh 'java -jar /home/ubuntu/.jenkins/workspace/scriptedpipeline/testing.jar'
+    }
+    stage ('continuous delivery')
+    {
+        deploy adapters: [tomcat8(credentialsId: '28c378e4-ac48-4991-8625-811689177464', path: '', url: 'http://172.31.5.216:8080')], contextPath: 'qaapp', war: '**\\*.war'
+    }
+}
