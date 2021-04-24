@@ -1,27 +1,55 @@
-node {
-    stage('continous downlaod') {
-    git 'https://github.com/AnupamaSoma/maven-project.git'
-}
-    stage('continous build') {
-    sh 'mvn package'
-}
-     stage('continous deploy'){
-         deploy adapters: [tomcat8(credentialsId: 'mycred', path: '', url: 'http://172.31.81.254:8080')], contextPath: 'testapp', war: '**/*.war'
-         //sh 'java -jar /home/ubuntu/.jenkins/workspace/scriped_pipeline/testing.jar '
-          }
-    stage('continous testing '){
-        git 'https://github.com/AnupamaSoma/FunctionalTesting.git'
-        sh 'java -jar /home/ubuntu/.jenkins/workspace/scriped_pipeline/testing.jar '
-    }
-    stage('continous deploy')
+pipeline
+{
+    agent any
+    stages
     {
-        deploy adapters: [tomcat8(credentialsId: 'mycred', path: '', url: 'http://172.31.29.52:8080')], contextPath: 'prodapp', war: '**/*.war'
-        sh 'echo deployed to tomcat'
-        
-    }
-      stage ('email notification')
-     {
-        mail bcc: '', body: 'test1', cc: '', from: '', replyTo: '', subject: 'test1', to: 'likithadithyadell@gmail.com'
-    }
+        stage('continuous download') 
+      {
+        steps
+        {
+          git 'https://github.com/likith1728/maven-project.git'
+        }
+      }
+      stage('continuous building')
+      {
+        steps
+        {
+          sh 'mvn package'  
+        }
+ }
+      stage('continuous deployment') 
+      {
+         steps
+
+{
+        deploy adapters: [tomcat8(credentialsId: '68e582c1-1356-4684-b477-799ca640c97c', path: '', url: 'http://172.31.6.245:8080')], contextPath: 'qaapp', war: '**/*.war'
+        }
+      }
+   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
