@@ -37,7 +37,7 @@ pipeline
           steps
          {
           deploy adapters: [tomcat8(credentialsId: '68e582c1-1356-4684-b477-799ca640c97c', path: '', url: 'http://172.31.6.245:8080')], contextPath: 'qaapp', war: '**/*.war'
-          mail bcc: '', body: 'test1', cc: 'roshni.vijaykumar6@gmail.com', from: '', replyTo: '', subject: 'test1', to: 'likithadithyadell@gmail.com'
+          mail bcc: '', body: 'test1', cc: 'roshni.vijaykumar6@gmail.com', from: '', replyTo: '', subject: 'test1', to: 'likithreddy1728@gmail.com'
          }
       }
     }
